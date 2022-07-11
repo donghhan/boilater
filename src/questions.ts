@@ -6,7 +6,7 @@ export const questions = [
     name: "project",
     message: "I want to make my project of... (1/4)",
     choices: ["react"],
-    filter(val) {
+    filter(val: string) {
       return val.toLowerCase();
     },
   },
@@ -14,8 +14,8 @@ export const questions = [
     type: "input",
     name: "projectName",
     message: "My project name is... (2/4)",
-    validate(value) {
-      const valid = value.match(/^(?=.*[a-z_-].{0,}$)/);
+    validate(value: string) {
+      const valid = value.match(/^[a-z_-]{1,}/g);
       if (valid) {
         return true;
       }
@@ -28,7 +28,7 @@ export const questions = [
     name: "language",
     message: "I would like to build my project with... (3/4)",
     choices: ["JavaScript", "TypeScript"],
-    filter(val) {
+    filter(val: string) {
       return val.toLowerCase();
     },
   },
@@ -37,7 +37,7 @@ export const questions = [
     name: "customization",
     message: "How would you like to set up your project? (4/4)",
     choices: ["blank", "customize"],
-    filter(val) {
+    filter(val: string) {
       return val.toLowerCase();
     },
   },
@@ -46,10 +46,10 @@ export const questions = [
     name: "styling",
     message: "I would like to choose styling of... (1/2)",
     choices: ["sass/scss", "styled-components", "tailwindcss"],
-    filter(val) {
+    filter(val: string) {
       return val.toLowerCase();
     },
-    when: (answers) => answers.customization !== "blank",
+    when: (answers: any) => answers.customization !== "blank",
   },
   //   {
   //     type: "checkbox",
