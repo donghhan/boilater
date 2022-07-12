@@ -1,24 +1,28 @@
-import boxen from "boxen";
+#!/usr/bin/env node
+import path from "path";
 import inquirer from "inquirer";
+import WelcomeBox from "./welcomeBox";
+import { CreateTemplate, CreateDirectoryContents } from "./templateCreator";
 import { questions } from "./questions";
+import { ICliOptions } from "./utils/interface";
+import { CURRENT_WORKING_DIRECTORY } from "./utils/variable";
 
-// Welcome box
-console.log(
-  boxen(
-    "Welcome and thank you for using Boilater!\nPlease select options for creating your boilerplate!",
-    {
-      padding: 1,
-      margin: 1,
-      textAlignment: "center",
-      title: "Boilater",
-      titleAlignment: "center",
-      borderStyle: "double",
-      borderColor: "cyan",
-    }
-  )
-);
+WelcomeBox();
 
 inquirer
   .prompt(questions)
-  .then((answers) => console.log(answers))
+  .then(({ templateType, projectName, language, customization, styling }) => {
+    // boilater/templates/react/{language}
+    const templatePath = path.join(
+      CURRENT_WORKING_DIRECTORY,
+      "templates",
+      templateType,
+      language,
+      (styling = customization === "customize" ? styling : "")
+    );
+    // boilater/{projectName}
+    const targetPath = path.join(CURRENT_WORKING_DIRECTORY, projectName);
+  })
   .catch((error: any) => console.log(error));
+
+function createFiles() {}

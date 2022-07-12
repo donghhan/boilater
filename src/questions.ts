@@ -1,11 +1,13 @@
-// import inquirer from "inquirer";
+import fs from "fs";
+import path from "path";
+import { CURRENT_WORKING_DIRECTORY, TEMPLATE_CHOICES } from "./utils/variable";
 
 export const questions = [
   {
     type: "list",
-    name: "project",
+    name: "templateType",
     message: "I want to make my project of... (1/4)",
-    choices: ["react"],
+    choices: TEMPLATE_CHOICES,
     filter(val: string) {
       return val.toLowerCase();
     },
@@ -45,7 +47,7 @@ export const questions = [
     type: "list",
     name: "styling",
     message: "I would like to choose styling of... (1/2)",
-    choices: ["sass/scss", "styled-components", "tailwindcss"],
+    choices: ["scss", "styled-components", "tailwindcss"],
     filter(val: string) {
       return val.toLowerCase();
     },
